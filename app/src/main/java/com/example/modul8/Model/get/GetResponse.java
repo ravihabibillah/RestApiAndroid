@@ -3,6 +3,10 @@ package com.example.modul8.Model.get;
 import java.util.List;
 import com.google.gson.annotations.SerializedName;
 
+/*
+Nama :  M.Ravi Habibillah
+NIM  :  123170039
+*/
 public class GetResponse{
 
 	@SerializedName("data")

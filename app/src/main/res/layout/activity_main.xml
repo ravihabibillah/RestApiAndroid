@@ -6,13 +6,24 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:textColor="@android:color/black"
+        android:text="Nama : Muhammad Ravi Habibillah \n NIM   : 123170039"
+        android:id="@+id/copyright"/>
+
     <android.support.v7.widget.SearchView
         android:id="@+id/search_bar"
+        android:layout_below="@+id/copyright"
         android:layout_width="match_parent"
         android:inputType="number"
         app:iconifiedByDefault="true"
         android:layout_height="wrap_content"
-        app:defaultQueryHint="ID.."></android.support.v7.widget.SearchView>
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        app:defaultQueryHint="ID . . . .       refresh klik 2x ---->"></android.support.v7.widget.SearchView>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_items"

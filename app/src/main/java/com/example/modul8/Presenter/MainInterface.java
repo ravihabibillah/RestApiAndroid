@@ -1,5 +1,9 @@
 package com.example.modul8.Presenter;
 
+/*
+Nama :  Ramanda Walbari...
+NIM  :  1231700...
+*/
 public interface MainInterface {
     void getAllItems();
     void updateItems(String id, String name, String description);

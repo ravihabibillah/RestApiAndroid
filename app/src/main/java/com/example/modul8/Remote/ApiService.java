@@ -15,24 +15,30 @@ import retrofit2.http.PUT;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
+/*
+Nama :  Nadia Stef....
+NIM  :  1231700...
+*/
+
+
 public interface ApiService {
     @POST("/items")
-    Call<PostResponse> createItems(@Query("name") String name,
+    Call<PostResponse> createItems(@Query("name") String name,                      // Insert Data ke database
                                    @Query("description") String description);
 
-    @GET("/items")
+    @GET("/items")                                                                  // Get all Data dari database
     Call<GetResponse> getAllItems();
 
     @FormUrlEncoded
-    @PUT("/items/{id}")
+    @PUT("/items/{id}")                                                             // Update / Edit data di database
     Call<JsonObject> updateDataItems(@Path("id") String id,
                                      @Field("name") String name,
                                      @Field("description") String description);
 
     @DELETE("/items/{id}")
-    Call<JsonObject> deleteDataItems(@Path("id") String id);
+    Call<JsonObject> deleteDataItems(@Path("id") String id);                         //Delete data di database
 
     @GET("/items/{id}")
-    Call<GetIdResponse> getById(@Path("id") String id);
+    Call<GetIdResponse> getById(@Path("id") String id);                               //Mengambil data berdasarkan id
 
 }

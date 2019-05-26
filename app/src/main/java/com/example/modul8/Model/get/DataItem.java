@@ -2,6 +2,10 @@ package com.example.modul8.Model.get;
 
 import com.google.gson.annotations.SerializedName;
 
+/*
+Nama :  M.Ravi Habibillah
+NIM  :  123170039
+*/
 public class DataItem{
 
 	@SerializedName("updated_at")

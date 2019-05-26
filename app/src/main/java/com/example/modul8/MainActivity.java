@@ -28,6 +28,10 @@ import com.example.modul8.Presenter.MainView;
 import java.util.ArrayList;
 import java.util.List;
 
+/*
+Nama :  M.Ravi Habibillah
+NIM  :  123170039
+*/
 public class MainActivity extends AppCompatActivity implements MainView, ItemAdapter.OnAdapterClickListener, GetIdAdapter.OnAdapterClickListener {
 
     private RecyclerView recyclerView;
@@ -44,46 +48,56 @@ public class MainActivity extends AppCompatActivity implements MainView, ItemAda
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        list = new ArrayList<>();       //membuat list
-        listId = new ArrayList<>();
+        list = new ArrayList<>();                                       //  membuat list
+        listId = new ArrayList<>();                                     //
+
         recyclerView = findViewById(R.id.rv_items);
         floatingActionButton = findViewById(R.id.fb_items);
+
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                newItemsDialog();
+                newItemsDialog();                           //memberikan action ke floating button
             }
-        });     //memberikan action ke floating button
+        });
 
-        itemAdapter = new ItemAdapter(this, list, this);    //men set item Adapter dengan memasukkan list
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(itemAdapter);       // men set list yang ada di adapter kedalam recycleview
-        presenter = new MainPresenter(this);
-        presenter.getAllItems();
+        itemAdapter = new ItemAdapter(this, list, this);                //membuat itemAdapter Baru dengan memasukkan list item
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));           //membuat Layout
+        recyclerView.setAdapter(itemAdapter);                                   // men set list yang ada di adapter kedalam recycleview
+
+        presenter = new MainPresenter(this);                    //memanggil MainPresenter
+        presenter.getAllItems();                                          //mengambil Semua data
 
         searchView = findViewById(R.id.search_bar);
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {            // Memberikan action pada SearchView
             @Override
             public boolean onQueryTextSubmit(String query) {
-                presenter.getByID(query);
+                presenter.getByID(query);                       //Action Ketika menekan tombol Submit
                 return true;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                presenter.getByID(newText);
-                return true;
+//                presenter.getByID(newText);                   //Action ketika mengetik
+                return false;
             }
 
         });
-//        searchView.setOnCloseListener(new SearchView.OnCloseListener() {
-//            @Override
-//            public boolean onClose() {
-//                presenter.getAllItems();
-//                return true;
-//            }
-//        });
+
+        searchView.setOnCloseListener(new SearchView.OnCloseListener() {
+            @Override
+            public boolean onClose() {          //Action ketika SearchView di close / menekan tombol silang (X)
+                recyclerView.setAdapter(itemAdapter);       // men set list yang ada di adapter kedalam recycleview
+                presenter.getAllItems();                //menampilkan seluruh data
+                return true;
+            }
+        });
     }
+
+/*
+Nama :  Nadia ...
+NIM  :  1231700..
+*/
 
     //menampilkan Dialog untuk memasukkan data
     private void newItemsDialog() {
@@ -122,6 +136,11 @@ public class MainActivity extends AppCompatActivity implements MainView, ItemAda
         builder.show();
     }
 
+/*
+Nama :  Ika Husni...
+NIM  :  1231700...
+*/
+    // Action dan Pop Up Delete
     private void deleteDialog(final String id) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Apakah kita Benar Akan Menghapus Item ini?");
@@ -141,6 +160,11 @@ public class MainActivity extends AppCompatActivity implements MainView, ItemAda
         builder.show();
     }
 
+/*
+Nama :  Ramanda Walbari...
+NIM  :  1231700....
+*/
+    // Action dan Pop Up Edit
     private void editDialog(final String id, final String name, final String description) {
         LayoutInflater factory = LayoutInflater.from(this);
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -173,11 +197,18 @@ public class MainActivity extends AppCompatActivity implements MainView, ItemAda
         builder.show();
     }
 
+
+/*
+Nama :  Ramanda Walbari...
+NIM  :  1231700...
+*/
+    //Action ketika Mobile ke Pause untuk sementara waktu
     protected void onResume() {
         super.onResume();
         presenter.getAllItems();
     }
 
+    // Menset Action untuk Edit dan Delete
     @Override
     public void onClicked(String id, String name, String description, String key) {
         if (key.equalsIgnoreCase("edit")) {
@@ -187,10 +218,16 @@ public class MainActivity extends AppCompatActivity implements MainView, ItemAda
         }
     }
 
+
+/*
+Nama :  M.Ravi Habibillah
+NIM  :  123170039
+*/
+
     @Override
     public void getSucces(GetResponse list) {
         this.list.clear();
-        this.list.addAll(list.getData());
+        this.list.addAll(list.getData());       // melakukan set data ke list
         itemAdapter.notifyDataSetChanged();
     }
 
@@ -202,24 +239,32 @@ public class MainActivity extends AppCompatActivity implements MainView, ItemAda
 
     @Override
     public void onError(String errorMessage) {
-        Toast.makeText(this, errorMessage, Toast.LENGTH_LONG).show();
+        Toast.makeText(this, errorMessage, Toast.LENGTH_LONG).show();   //pesan error
     }
 
     @Override
     public void onFailure(String failureMessage) {
-        Toast.makeText(this, failureMessage, Toast.LENGTH_LONG).show();
+        Toast.makeText(this, failureMessage, Toast.LENGTH_LONG).show(); //pesan gagal
     }
 
-    @Override
-    public void getSuccess(GetIdResponse list) {
 
-        this.listId.clear();
-        this.listId.add(list.getData());
+
+
+    /*
+    Nama :  M.Ravi Habibillah
+    NIM  :  123170039
+    */
+
+    @Override
+    public void getSuccess(GetIdResponse data) {    //jika sukses mendapatkan id
+
+        this.listId.clear();        //membersihkan listId
+        this.listId.add(data.getData());    //memasukka data ke listId
         itemAdapter.notifyDataSetChanged();
-        Log.d("isi",list.getData().getName());
-        getIdAdapter = new GetIdAdapter(this, this.listId, this);    //men set item Adapter dengan memasukkan list
+
+        getIdAdapter = new GetIdAdapter(this, this.listId, this);    //men set item Adapter dengan memasukkan listId
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(getIdAdapter);
+        recyclerView.setAdapter(getIdAdapter);          //melakukan set ID ke adapter
 
 
     }

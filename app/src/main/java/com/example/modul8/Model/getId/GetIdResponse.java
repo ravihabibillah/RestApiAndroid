@@ -4,6 +4,10 @@ import com.example.modul8.Model.post.Data;
 import com.google.gson.annotations.SerializedName;
 
 
+/*
+Nama :  M.Ravi Habibillah
+NIM  :  123170039
+*/
 public class GetIdResponse {
     @SerializedName("data")
     private DataId data;

@@ -10,6 +10,10 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+/*
+Nama :  M.Ravi Habibillah
+NIM  :  123170039
+*/
 public class MainPresenter implements MainInterface {
 
     private MainView mainView;
@@ -18,6 +22,7 @@ public class MainPresenter implements MainInterface {
         this.mainView = mainView;
     }
 
+    //Mengambil Seluruh Data melalui API
     @Override
     public void getAllItems() {
         BaseApp.service.getAllItems().enqueue(new Callback<GetResponse>() {
@@ -37,6 +42,7 @@ public class MainPresenter implements MainInterface {
         });
     }
 
+    //Mengambil Data berdasarkan ID melalui API
     @Override
     public void getByID(String id) {
         BaseApp.service.getById(id).enqueue(new Callback<GetIdResponse>() {
@@ -56,6 +62,7 @@ public class MainPresenter implements MainInterface {
         });
     }
 
+    //Mengupdate Data berdasarkan ID melalui API
     @Override
     public void updateItems(String id, String name, String description) {
         BaseApp.service.updateDataItems(id, name, description).enqueue(new Callback<JsonObject>() {
@@ -75,6 +82,7 @@ public class MainPresenter implements MainInterface {
         });
     }
 
+    //Menghapus Data berdasarkan ID melalui API
     @Override
     public void deleteItems(String id) {
         BaseApp.service.deleteDataItems(id).enqueue(new Callback<JsonObject>() {
@@ -94,6 +102,8 @@ public class MainPresenter implements MainInterface {
         });
     }
 
+
+    //Menambahkan Data melalui API
     @Override
     public void createItems(String name, String description) {
         BaseApp.service.createItems(name, description).enqueue(new Callback<PostResponse>() {

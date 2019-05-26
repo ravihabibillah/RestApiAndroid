@@ -10,6 +10,13 @@ import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+/*
+Nama :  M.Ravi Habibillah
+NIM  :  123170039
+*/
+
+// class yang berguna untuk menyambung kan API
+
 public class BaseApp extends Application {
     public static ApiService service;
     private String url = "https://api-barang.herokuapp.com";

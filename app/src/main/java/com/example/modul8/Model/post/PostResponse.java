@@ -2,6 +2,10 @@ package com.example.modul8.Model.post;
 
 import com.google.gson.annotations.SerializedName;
 
+/*
+Nama :  M.Ravi Habibillah
+NIM  :  123170039
+*/
 public class PostResponse{
 
 	@SerializedName("data")

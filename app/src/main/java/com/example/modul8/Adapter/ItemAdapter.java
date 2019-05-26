@@ -13,6 +13,14 @@ import com.example.modul8.R;
 
 import java.util.List;
 
+/*
+Nama :  M.Ravi Habibillah
+NIM  :  123170039
+*/
+
+
+//Adapter Untuk Melakukan set Data yang didapat melalui API ke RecycleView
+
 public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.Holder> {
     private Context context;
     private List<DataItem> list;

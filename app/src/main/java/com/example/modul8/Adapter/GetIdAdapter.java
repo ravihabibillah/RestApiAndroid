@@ -3,7 +3,6 @@ package com.example.modul8.Adapter;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.telecom.Call;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +14,12 @@ import com.example.modul8.R;
 
 import java.util.List;
 
+/*
+Nama :  Nadia Stef...
+NIM  :  1231700...
+*/
+
+//Adapter Untuk Melakukan set Data yang didapat melalui API ke RecycleView
 public class GetIdAdapter extends RecyclerView.Adapter<GetIdAdapter.Holder> {
 
     private Context context;
@@ -49,7 +54,10 @@ public class GetIdAdapter extends RecyclerView.Adapter<GetIdAdapter.Holder> {
     public interface OnAdapterClickListener {
         void onClicked(String id, String name, String description, String key);
     }
-
+    /*
+Nama :  Ika Husni...
+NIM  :  1231700...
+*/
     public class Holder extends RecyclerView.ViewHolder {
 
         private TextView tvName, tvDescription, tvId;
