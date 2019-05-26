@@ -7,27 +7,36 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.modul8.Adapter.GetIdAdapter;
 import com.example.modul8.Adapter.ItemAdapter;
 import com.example.modul8.Model.get.DataItem;
 import com.example.modul8.Model.get.GetResponse;
+import com.example.modul8.Model.getId.DataId;
+import com.example.modul8.Model.getId.GetIdResponse;
+import com.example.modul8.Model.post.Data;
 import com.example.modul8.Presenter.MainPresenter;
 import com.example.modul8.Presenter.MainView;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements MainView, ItemAdapter.OnAdapterClickListener {
+public class MainActivity extends AppCompatActivity implements MainView, ItemAdapter.OnAdapterClickListener, GetIdAdapter.OnAdapterClickListener {
 
     private RecyclerView recyclerView;
+    private SearchView searchView;
     private ItemAdapter itemAdapter;
+    private GetIdAdapter getIdAdapter;
     private MainPresenter presenter;
     private List<DataItem> list;
+    private List<DataId> listId;
     private FloatingActionButton floatingActionButton;
 
     @Override
@@ -35,7 +44,8 @@ public class MainActivity extends AppCompatActivity implements MainView, ItemAda
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        list = new ArrayList<>();
+        list = new ArrayList<>();       //membuat list
+        listId = new ArrayList<>();
         recyclerView = findViewById(R.id.rv_items);
         floatingActionButton = findViewById(R.id.fb_items);
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
@@ -43,15 +53,39 @@ public class MainActivity extends AppCompatActivity implements MainView, ItemAda
             public void onClick(View v) {
                 newItemsDialog();
             }
-        });
+        });     //memberikan action ke floating button
 
-        itemAdapter = new ItemAdapter(this, list, this);
+        itemAdapter = new ItemAdapter(this, list, this);    //men set item Adapter dengan memasukkan list
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(itemAdapter);
+        recyclerView.setAdapter(itemAdapter);       // men set list yang ada di adapter kedalam recycleview
         presenter = new MainPresenter(this);
         presenter.getAllItems();
+
+        searchView = findViewById(R.id.search_bar);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                presenter.getByID(query);
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                presenter.getByID(newText);
+                return true;
+            }
+
+        });
+//        searchView.setOnCloseListener(new SearchView.OnCloseListener() {
+//            @Override
+//            public boolean onClose() {
+//                presenter.getAllItems();
+//                return true;
+//            }
+//        });
     }
 
+    //menampilkan Dialog untuk memasukkan data
     private void newItemsDialog() {
         LayoutInflater factory = LayoutInflater.from(this);
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -175,4 +209,20 @@ public class MainActivity extends AppCompatActivity implements MainView, ItemAda
     public void onFailure(String failureMessage) {
         Toast.makeText(this, failureMessage, Toast.LENGTH_LONG).show();
     }
+
+    @Override
+    public void getSuccess(GetIdResponse list) {
+
+        this.listId.clear();
+        this.listId.add(list.getData());
+        itemAdapter.notifyDataSetChanged();
+        Log.d("isi",list.getData().getName());
+        getIdAdapter = new GetIdAdapter(this, this.listId, this);    //men set item Adapter dengan memasukkan list
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(getIdAdapter);
+
+
+    }
+
+
 }

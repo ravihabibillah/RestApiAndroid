@@ -1,5 +1,6 @@
 package com.example.modul8.Presenter;
 
+import com.example.modul8.Model.getId.GetIdResponse;
 import com.example.modul8.Model.get.GetResponse;
 import com.example.modul8.Model.post.PostResponse;
 import com.example.modul8.Remote.BaseApp;
@@ -31,6 +32,25 @@ public class MainPresenter implements MainInterface {
 
             @Override
             public void onFailure(Call<GetResponse> call, Throwable t) {
+                mainView.onFailure(t.getMessage());
+            }
+        });
+    }
+
+    @Override
+    public void getByID(String id) {
+        BaseApp.service.getById(id).enqueue(new Callback<GetIdResponse>() {
+            @Override
+            public void onResponse(Call<GetIdResponse> call, Response<GetIdResponse> response2) {
+                if (response2.isSuccessful())
+                    mainView.getSuccess(response2.body());
+                else
+                    mainView.onError(response2.message());
+
+            }
+
+            @Override
+            public void onFailure(Call<GetIdResponse> call, Throwable t) {
                 mainView.onFailure(t.getMessage());
             }
         });

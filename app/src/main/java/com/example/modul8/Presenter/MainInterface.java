@@ -5,4 +5,5 @@ public interface MainInterface {
     void updateItems(String id, String name, String description);
     void deleteItems(String id);
     void createItems(String name, String description);
+    void getByID(String id);
 }

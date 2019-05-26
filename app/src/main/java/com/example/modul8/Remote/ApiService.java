@@ -1,5 +1,6 @@
 package com.example.modul8.Remote;
 
+import com.example.modul8.Model.getId.GetIdResponse;
 import com.example.modul8.Model.get.GetResponse;
 import com.example.modul8.Model.post.PostResponse;
 import com.google.gson.JsonObject;
@@ -32,6 +33,6 @@ public interface ApiService {
     Call<JsonObject> deleteDataItems(@Path("id") String id);
 
     @GET("/items/{id}")
-    Call<GetResponse> search(@Query("id") String id);
+    Call<GetIdResponse> getById(@Path("id") String id);
 
 }
